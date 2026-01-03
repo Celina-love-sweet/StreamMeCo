@@ -19,7 +19,7 @@ This study builds upon the M3-Agent framework; therefore, the M3-Agent model and
 For detailed information on the required resources and downloading procedures, please refer to the links provided by M3-Agent. The overall structure of this project is organized as follows:
 
 ```text
-StreamMeCo/
+StreamMeCo-main/
 
 ├── configs/
 │   ├── __init__.py
@@ -91,8 +91,7 @@ StreamMeCo/
 ├── score.py
 ├── setup.sh
 ├── streammeco.py
-└── visualization.py
-                                   
+└── visualization.py                                   
 ```
 
 ---
@@ -137,7 +136,7 @@ You need to prepare a JSONL file to specify the storage paths of video segments,
 This step uses Face Detection and Speaker Diarization tools to generate intermediate outputs. You can run the following code.
 
 ```bash
-python -m m3_agent.memorization_intermediate_outputs --data_file /streammeco/memory_videomme.jsonl
+python -m m3_agent.memorization_intermediate_outputs --data_file /StreamMeCo-main/memory_videomme.jsonl
 ```
 
 ### 3.4. Generate Memory Graphs
@@ -145,7 +144,7 @@ python -m m3_agent.memorization_intermediate_outputs --data_file /streammeco/mem
 This step uses the M3-Agent-Memorization model to generate memory graphs. You can run the following code.
 
 ```bash
-python -m m3_agent.memorization_memory_graphs --data_file /streammeco/memory_videomme.jsonl
+python -m m3_agent.memorization_memory_graphs --data_file /StreamMeCo-main/memory_videomme.jsonl
 ```
 
 ---
