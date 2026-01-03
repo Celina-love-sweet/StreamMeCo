@@ -98,13 +98,15 @@ StreamMeCo-main/
 
 ## ⚙️ 2. Environment Setup
 
-We recommend using a Python virtual environment to avoid conflicts.
+We recommend using a Python virtual environment to avoid conflicts. Our implementation has been tested with `PyTorch 2.6.0+cu124`.
+
 
 ### 2.1. Create and activate a virtual environment (e.g., with conda):
 
 ```bash
 conda create -n streammeco python=3.11.14 -y
 conda activate streammeco
+cd StreamMeCo-main
 ```
 
 ### 2.2. Install Python dependencies:
