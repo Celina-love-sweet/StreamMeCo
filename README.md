@@ -30,8 +30,8 @@ StreamMeCo/
 ├── data/
 │   ├── annotations/
 │   │   ├── robot.json
-│   │   ├── videomme.json
-│   │   └── web.json
+│   │   ├── web.json
+│   │   └── videomme.json
 │   │
 │   ├── videos/
 │   │   ├── robot/
@@ -85,6 +85,7 @@ StreamMeCo/
 │     │
 │     ├── M3-Agent-Memorization/
 │     │     └── ...
+|     ├──pretrained_eres2netv2.ckpt
 |
 |——speakerlab/
 |     └── ...
