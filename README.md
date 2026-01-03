@@ -79,7 +79,7 @@ StreamMeCo/
 │   ├── videograph.py
 │   └── voice_processing.py
 │
-|——models/
+├── models/
 |     ├── M3-Agent-Control/
 │     │     └── ...
 │     │
@@ -87,11 +87,11 @@ StreamMeCo/
 │     │     └── ...
 |     ├──pretrained_eres2netv2.ckpt
 |
-|——speakerlab/
+├── speakerlab/
 |     └── ...
 |
 ├── cut_videomme.py
-├── memory_videmme.jsonl
+├── memory_videomme.jsonl
 ├── requirements.txt
 ├── score.py
 ├── setup.sh
@@ -109,7 +109,7 @@ We recommend using a Python virtual environment to avoid conflicts.
 ### 2.1. Create and activate a virtual environment (e.g., with conda):
 
 ```bash
-conda create -n streammeco=3.11.14 -y
+conda create -n streammeco python=3.11.14 -y
 conda activate streammeco
 ```
 
@@ -117,7 +117,6 @@ conda activate streammeco
 
 ```bash
 bash setup.sh
-pip install git+https://github.com/huggingface/transformers@f742a644ca32e65758c3adb36225aef1731bd2a8
 pip install qwen-omni-utils==0.0.4
 pip install transformers==4.51.0
 pip install vllm==0.8.4
