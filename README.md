@@ -168,9 +168,38 @@ You can control the dataset selection and the saving path of the compressed memo
 
 ---
 
+## 🚀 5. Inference
 
+You can run the model using the compressed memory graphs with the following code.
 
+```bash
+CUDA_VISIBLE_DEVICES=0,1 python -m m3_agent.control
+```
+Note that you should modify the `--data_file` parameter and replace it with the path to the compressed memory graphs.
 
+---
+
+## 🔍 6. Memory Graph Visualization
+
+If you need to inspect the contents of the memory graphs, please run the following code.
+
+```bash
+python visualization.py
+```
+
+Note that the memory graph path specified by `--mem_path` should be replaced with the one you intend to inspect.
+
+---
+
+## 🙏 7. Acknowledgements
+
+- We sincerely thank the developers of the [**ByteDance-Seed/M3-Agent**](https://github.com/ByteDance-Seed/m3-agent) model for their outstanding work and for making their codebase publicly available.
+
+---
+
+## 📬 8. Contact
+
+If you have any questions or encounter any issues, feel free to open an issue or contact me directly.
 
 
 
