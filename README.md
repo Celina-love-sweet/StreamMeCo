@@ -90,11 +90,13 @@ StreamMeCo/
 |——speakerlab/
 |     └── ...
 |
+├── cut_videomme.py
+├── memory_videmme.jsonl
+├── requirements.txt
 ├── score.py
-├── streammeco.py
-├── visualization.py
 ├── setup.sh
-└── requirements.txt
+├── streammeco.py
+└── visualization.py
                                    
 ```
 
