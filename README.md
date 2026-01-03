@@ -36,23 +36,19 @@ StreamMeCo/
 │   ├── videos/
 │   │   ├── robot/
 │   │   │   └── ...
-│   │   │
 │   │   ├── web/
 │   │   │   └── ...
-│   │   │
 │   │   └── videomme/
 │   │       └── ...
 │   │
 │   └── memory_graphs/
 │       ├── robot/
 │       │   └── ...
-│       │
 │       ├── web/
 │       │   └── ...
-│       │
 │       └── videomme/
 │           └── ...
-|
+│
 ├── m3_agent/
 │   ├── control.py
 │   ├── memorization_intermediate_outputs.py
@@ -80,16 +76,15 @@ StreamMeCo/
 │   └── voice_processing.py
 │
 ├── models/
-|     ├── M3-Agent-Control/
-│     │     └── ...
-│     │
-│     ├── M3-Agent-Memorization/
-│     │     └── ...
-|     ├──pretrained_eres2netv2.ckpt
-|
+│   ├── M3-Agent-Control/
+│   │   └── ...
+│   ├── M3-Agent-Memorization/
+│   │   └── ...
+│   └── pretrained_eres2netv2.ckpt
+│
 ├── speakerlab/
-|     └── ...
-|
+│   └── ...
+│
 ├── cut_videomme.py
 ├── memory_videomme.jsonl
 ├── requirements.txt
@@ -142,7 +137,7 @@ You need to prepare a JSONL file to specify the storage paths of video segments,
 This step uses Face Detection and Speaker Diarization tools to generate intermediate outputs. You can run the following code.
 
 ```bash
-python -m m3_agent.memorization_intermediate_outputs --data_file /streammeco/memory_videmme.jsonl
+python -m m3_agent.memorization_intermediate_outputs --data_file /streammeco/memory_videomme.jsonl
 ```
 
 ### 3.4. Generate Memory Graphs
@@ -150,7 +145,7 @@ python -m m3_agent.memorization_intermediate_outputs --data_file /streammeco/mem
 This step uses the M3-Agent-Memorization model to generate memory graphs. You can run the following code.
 
 ```bash
-python -m m3_agent.memorization_memory_graphs --data_file /streammeco/memory_videmme.jsonl
+python -m m3_agent.memorization_memory_graphs --data_file /streammeco/memory_videomme.jsonl
 ```
 
 ---
