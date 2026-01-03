@@ -128,10 +128,27 @@ For the M3-Bench-robot and M3-Bench-web datasets, the memory graphs provided by 
 
 ### 3.1. Cut Video
 
-You need to split each video into 30-second segments. This can be done using the script 'cut_videomme.py'.
+You need to split each video into 30-second segments. This can be done using the script `cut_videomme.py`.
 
+### 3.2. Prepare the JSONL files
 
+You need to prepare a JSONL file to specify the storage paths of video segments, memory graphs, and intermediate outputs. We provide such a file named `memory_videomme.jsonl`.
 
+### 3.3. Generate Intermediate Outputs
+
+This step uses Face Detection and Speaker Diarization tools to generate intermediate outputs. You can run the following code.
+
+```bash
+python -m m3_agent.memorization_intermediate_outputs --data_file /streammeco/memory_videmme.jsonl
+```
+
+### 3.4. Generate Memory Graphs
+
+This step uses the M3-Agent-Memorization model to generate memory graphs. You can run the following code.
+
+```bash
+python -m m3_agent.memorization_memory_graphs --data_file /streammeco/memory_videmme.jsonl
+```
 
 
 
