@@ -124,6 +124,8 @@ pip install vllm==0.8.4
 pip install numpy==1.26.4
 ```
 
+---
+
 ## 🛠️ 3. Memory Graph Generation
 
 For the M3-Bench-robot and M3-Bench-web datasets, the memory graphs provided by the official M3-Agent implementation can be directly used. In contrast, for the VideoMME dataset, the memory graphs need to be constructed from scratch, and the detailed procedure is described as follows.
@@ -152,7 +154,19 @@ This step uses the M3-Agent-Memorization model to generate memory graphs. You ca
 python -m m3_agent.memorization_memory_graphs --data_file /streammeco/memory_videmme.jsonl
 ```
 
+---
 
+## ✅ 4. Memory Graph Compression
+
+You can use our **StreamMeCo** framework to compress the previously generated memory graphs, as detailed below.
+
+```bash
+python streammeco.py
+```
+
+You can control the dataset selection and the saving path of the compressed memory graphs by specifying the `--mem_path` and `--compressed_mem_path` parameters.
+
+---
 
 
 
