@@ -122,6 +122,14 @@ pip install vllm==0.8.4
 pip install numpy==1.26.4
 ```
 
+## 🛠️ 3. Memory Graph Generation
+
+For the M3-Bench-robot and M3-Bench-web datasets, the memory graphs provided by the official M3-Agent implementation can be directly used. In contrast, for the VideoMME dataset, the memory graphs need to be constructed from scratch, and the detailed procedure is described as follows.
+
+### 3.1. Cut Video
+
+You need to split each video into 30-second segments. This can be done using the script 'cut_videomme.py'.
+
 
 
 
