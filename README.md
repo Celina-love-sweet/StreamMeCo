@@ -33,14 +33,14 @@ StreamMeCo/
 │   │   ├── videomme.json
 │   │   └── web.json
 │   │
-│   ├── datasets/
-│   │   ├── M3-Bench-robot/
+│   ├── videos/
+│   │   ├── robot/
 │   │   │   └── ...
 │   │   │
-│   │   ├── M3-Bench-videomme/
+│   │   ├── web/
 │   │   │   └── ...
 │   │   │
-│   │   └── M3-Bench-web/
+│   │   └── videomme/
 │   │       └── ...
 │   │
 │   └── memory_graphs/
@@ -94,9 +94,45 @@ StreamMeCo/
 ├── visualization.py
 ├── setup.sh
 └── requirements.txt
-
                                    
 ```
 
 ---
+
+## ⚙️ 2. Environment Setup
+
+We recommend using a Python virtual environment to avoid conflicts.
+
+### 2.1. Create and activate a virtual environment (e.g., with conda):
+
+```bash
+conda create -n streammeco=3.11.14 -y
+conda activate streammeco
+```
+
+### 2.2. Install Python dependencies:
+
+```bash
+bash setup.sh
+pip install git+https://github.com/huggingface/transformers@f742a644ca32e65758c3adb36225aef1731bd2a8
+pip install qwen-omni-utils==0.0.4
+pip install transformers==4.51.0
+pip install vllm==0.8.4
+pip install numpy==1.26.4
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
