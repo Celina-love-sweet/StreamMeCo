@@ -1,8 +1,10 @@
 # StreamMeCo: Long-Term Agent Memory Compression for Efficient Streaming Video Understanding
 
 <p align="center">
-  <img src="/StreamMeCo/StreamMeCo.png" width="85%">
+  <img src="/StreamMeCo/StreamMeCo.png" width="95%"><br>
+  <em>Figure 1: The overview of StreamMeCo.</em>
 </p>
+
 
 ## 📦 1. Model and Data Preparation
 
