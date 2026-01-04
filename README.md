@@ -1,5 +1,7 @@
 # StreamMeCo: Long-Term Agent Memory Compression for Efficient Streaming Video Understanding
 
+![The Overview of StreamMeCo](StreamMeCo.png)
+
 ## 📦 1. Model and Data Preparation
 
 This study builds upon the M3-Agent framework; therefore, the M3-Agent model and the corresponding datasets must be downloaded and prepared in advance.
