@@ -123,6 +123,7 @@ pip install qwen-omni-utils==0.0.4
 pip install transformers==4.51.0
 pip install vllm==0.8.4
 pip install numpy==1.26.4
+pip install flash-attn==2.6.3
 ```
 
 ---
