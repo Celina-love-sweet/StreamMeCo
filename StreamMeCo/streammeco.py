@@ -1,3 +1,4 @@
+
 import os
 import math
 import pickle
@@ -74,6 +75,22 @@ def _assign_rank_weights(scores: Dict[int, float], invert: bool = False) -> Dict
     return normalized
 
 
+def _is_equivalence_text_node(node) -> bool:
+    if not node or getattr(node, "type", None) not in TEXT_NODE_TYPES:
+        return False
+    metadata = getattr(node, "metadata", None)
+    if not isinstance(metadata, dict):
+        return False
+    contents = metadata.get("contents", [])
+    if not isinstance(contents, list):
+        contents = [contents]
+    for item in contents:
+        text = str(item).strip().lower()
+        if text.startswith("equivalence"):
+            return True
+    return False
+
+
 def classify_text_nodes(graph) -> Tuple[List[int], List[int], np.ndarray]:
     """Split text nodes into (no-media, with-media) groups and build the weight matrix."""
     media_nodes = [node_id for node_id, node in graph.nodes.items() if node.type in MEDIA_NODE_TYPES]
@@ -110,6 +127,8 @@ def classify_text_nodes(graph) -> Tuple[List[int], List[int], np.ndarray]:
     text_without_media: List[int] = []
     text_with_media: List[int] = []
     for node_id in ordered_text_ids:
+        if _is_equivalence_text_node(graph.nodes.get(node_id)):
+            continue
         if node_id in text_to_media_weights:
             text_with_media.append(node_id)
         else:
@@ -456,7 +475,7 @@ def process_graph_file(input_path: str, output_path: str, alpha: float) -> Dict[
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--mem_path", type=str, default="data/memory_graphs/robot")
-    parser.add_argument("--compressed_mem_path", type=str, default="data/memory_graphs_StreamMeCo/robot")
+    parser.add_argument("--compressed_mem_path", type=str, default="data/memory_graphs/streammeco_robot70")
     parser.add_argument("--alpha", type=float, default=0.1, help="Fusion coefficient for importance vs. dissimilarity rankings.")
     return parser.parse_args()
 
