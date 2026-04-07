@@ -32,17 +32,47 @@ logging.getLogger("httpcore").setLevel(logging.CRITICAL)
 processing_config = json.load(open("configs/processing_config.json"))
 temp = processing_config["temperature"]
 
-try:
-    config = json.load(open("configs/api_config.json"))
-    client = {}
-    for model_name in config.keys():
-        client[model_name] = openai.AzureOpenAI(
-            azure_endpoint=config[model_name]["azure_endpoint"],
-            api_version=config[model_name]["api_version"],
-            api_key=config[model_name]["api_key"],
-        )
-except:
-    pass
+config = json.load(open("configs/api_config.json"))
+client = {}
+client_init_errors = {}
+
+for model_name, model_cfg in config.items():
+    try:
+        api_key = model_cfg.get("api_key")
+        azure_endpoint = model_cfg.get("azure_endpoint")
+        api_version = model_cfg.get("api_version")
+        base_url = model_cfg.get("base_url") or model_cfg.get("openai_base_url")
+
+        if azure_endpoint:
+            if not api_version:
+                raise ValueError("Missing 'api_version' for Azure client")
+            client[model_name] = openai.AzureOpenAI(
+                azure_endpoint=azure_endpoint,
+                api_version=api_version,
+                api_key=api_key,
+            )
+        else:
+            # OpenAI-compatible endpoint (or official OpenAI when base_url is empty)
+            if base_url:
+                client[model_name] = openai.OpenAI(api_key=api_key, base_url=base_url)
+            else:
+                client[model_name] = openai.OpenAI(api_key=api_key)
+    except Exception as e:
+        client_init_errors[model_name] = f"{type(e).__name__}: {e}"
+        logger.error(f"Failed to initialize client for model '{model_name}': {e}")
+
+def _get_client_or_raise(model):
+    if model in client:
+        return client[model]
+    available = sorted(client.keys())
+    init_err = client_init_errors.get(model)
+    msg = (
+        f"Model client '{model}' is not initialized. "
+        f"Available model clients: {available}."
+    )
+    if init_err:
+        msg += f" Init error for this model: {init_err}"
+    raise KeyError(msg)
 
 MAX_RETRIES = 5
 
@@ -56,7 +86,8 @@ def get_response(model, messages, timeout=30):
     Returns:
         tuple: (response content, total tokens used)
     """
-    response = client[model].chat.completions.create(
+    model_client = _get_client_or_raise(model)
+    response = model_client.chat.completions.create(
         model=model, messages=messages, temperature=temp, timeout=timeout, max_tokens=8192
     )
     
@@ -125,7 +156,8 @@ def get_embedding(model, text, timeout=15):
     Returns:
         tuple: (embedding vector, total tokens used)
     """
-    response = client[model].embeddings.create(input=text, model=model, timeout=timeout)
+    model_client = _get_client_or_raise(model)
+    response = model_client.embeddings.create(input=text, model=model, timeout=timeout)
     return response.data[0].embedding, response.usage.total_tokens
 
 
@@ -142,14 +174,21 @@ def get_embedding_with_retry(model, text, timeout=15):
     Raises:
         Exception: If all retries fail
     """
+    last_exception = None
     for i in range(MAX_RETRIES):
         try:
             return get_embedding(model, text, timeout)
         except Exception as e:
+            last_exception = e
             sleep(20)
             logger.warning(f"Retry {i} times, exception: {e} from get embedding")
             continue
-    raise Exception(f"Failed to get embedding after {MAX_RETRIES} retries")
+    if last_exception is not None:
+        raise Exception(
+            f"Failed to get embedding after {MAX_RETRIES} retries for model '{model}'. "
+            f"Last error: {type(last_exception).__name__}: {last_exception}"
+        ) from last_exception
+    raise Exception(f"Failed to get embedding after {MAX_RETRIES} retries for model '{model}'")
 
 def parallel_get_embedding(model, texts, timeout=15):
     """Process multiple texts in parallel to get embeddings.
@@ -193,7 +232,8 @@ def get_whisper(model, file_path):
         str: Transcription text
     """
     file = open(file_path, "rb")
-    return client[model].audio.transcriptions.create(model=model, file=file).text
+    model_client = _get_client_or_raise(model)
+    return model_client.audio.transcriptions.create(model=model, file=file).text
 
 def get_whisper_with_retry(model, file_path):
     """Retry Whisper transcription with error handling.
