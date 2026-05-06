@@ -101,7 +101,7 @@ def streaming_process_video(video_graph, sample):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_file", type=str, default="streammeco/memory_videmme.jsonl.jsonl")
+    parser.add_argument("--data_file", type=str, default="streammeco/memory_videmme.jsonl")
     args = parser.parse_args()
     video_inputs = []
     
